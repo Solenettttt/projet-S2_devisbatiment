@@ -1,0 +1,15 @@
+public class Isolation extends Revetement{
+    int idIsolation;
+    double prix;
+
+    public Isolation(int idIsolation, double prix, int idRevetement) {
+        super(idRevetement);
+        this.idIsolation = idIsolation;
+        this.prix = prix;
+    }
+    
+    public double montant (Mur.surface(),prix){
+        double montant = Mur.surface() * prix;
+        return montant;
+    }
+}
