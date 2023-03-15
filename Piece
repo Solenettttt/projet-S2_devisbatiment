@@ -1,0 +1,16 @@
+public class Piece {
+    int idPiece;
+    Coin[] coins;
+    Mur[] murs;
+     
+    Mur[]arr = new Mur[250];
+    Coin[]art = new Coin[250];
+   
+    
+        
+        
+    
+}
+    
+    
+}
