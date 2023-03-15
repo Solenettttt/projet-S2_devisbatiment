@@ -1,0 +1,10 @@
+public abstract class Revetement {
+    int idRevetement;
+    public abstract double montant();
+
+    public Revetement(int idRevetement) {
+        this.idRevetement = idRevetement;
+    }
+    
+    
+}
