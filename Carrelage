@@ -1,0 +1,18 @@
+public class Carrelage extends Revetement {
+    int idCarrelage;
+    double prix;
+    int ccarrelage;
+
+    public Carrelage(int idCarrelage, double prix, int idRevetement) {
+        super(idRevetement);
+        this.idCarrelage = idCarrelage;
+        this.prix = prix;
+    }
+
+  
+    
+   public double montant (Mur.surface(),prix){
+        double montant = Mur.surface() * prix;
+        return montant;
+    }
+}
