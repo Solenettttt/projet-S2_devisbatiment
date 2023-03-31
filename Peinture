@@ -1,19 +1,17 @@
 public class Peinture extends Revetement {
-    
-    int idPeinture;
-    double prix;
-    int cpeinture;
 
-    public Peinture(int idPeinture, double prix, int idRevetement) {
-        super(idRevetement);
-        this.idPeinture = idPeinture;
-        this.prix = prix;
+    public Peinture(int idRevetement, double PrixU) {
+        super(idRevetement, PrixU);
     }
-   
+    
+
     
     
-    public double montant (Mur.surface(),prix){
-        double montant = Mur.surface() * prix;
+    @Override
+    public double montant (double surface){
+        double montant = surface * PrixU;
         return montant;
     }
+    
+//    créer exception pour ne pas l'appliquer au sol
   }
