@@ -1,0 +1,67 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com_insa.trieu.solene.mycompany.devisbatiment;
+
+/**
+ *
+ * @author strieu01
+ */
+
+public abstract class Revetement {
+    int idRevetement;
+    double PrixU;
+    
+    
+    public abstract double montant(double surface);
+
+    public Revetement(int idRevetement, double PrixU) {
+        this.idRevetement = idRevetement;
+        this.PrixU = PrixU;
+    }
+    
+  }
+    
+   
+    
+    
+    
+    
+    
+    
+    
+    
+   double [][] listerev = new listrev [18][6];
+   for(i=1;i<18;i++){ 
+    if (listrev[i][3]==1){   //pourmur
+      System.out.println("voulez vous du"+list[i][2]"?");  
+      res=Lire.S();
+      if res=="oui"{ 
+          PrixU=listrev[i][6];
+          }
+      break;
+    }
+}
+     for(i=1;i<18;i++){ 
+    if (listrev[i][4]==1){   //poursol
+      System.out.println("voulez vous du"+list[i][2]"?");  
+      res=Lire.S();
+      if res=="oui"{ 
+          PrixU=listrev[i][6];
+          }
+      break;
+    }
+}
+       for(i=1;i<18;i++){ 
+    if (listrev[i][5]==1){   //pourplafond
+      System.out.println("voulez vous du"+list[i][2]"?");  
+      res=Lire.S();
+      if res=="oui"{ 
+          PrixU=listrev[i][6];
+          }
+      break;
+    }
+}
+    
+    
