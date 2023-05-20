@@ -50,33 +50,29 @@ public class Revetement {   //astraite
         return R.prixUnitaire * s;
     }
     
-    //methode qui range données du fichier texte revetement dans un arraylist pour etre utilisée
+    //methode pour permettre l'utilisation des données du fichier texte revs en rangant dans une arraylist 
     public static ArrayList<Revetement> readDef(){
         ArrayList<Revetement> rev = new ArrayList<Revetement>();
-
         try {
-            FileReader fileReader = new FileReader("Bati/Revetements/revs.txt");
+            FileReader fileReader = new FileReader("Revetements/revs.txt");
             BufferedReader bufferedReader = new BufferedReader(fileReader);
+            
             String line;
-
             line = bufferedReader.readLine();
 
             while (line != null) {
-
                 String[] mys = line.split(";");
-                Revetement myRevetement = new Revetement();
+                Revetement choix = new Revetement();
 
                 try{
+                    choix.idRevetement = Integer.parseInt(mys[0]);
+                    choix.designation = mys[1];
+                    choix.pourMur = (mys[2].equals("1") );
+                    choix.pourSol = (mys[3].equals("1") );
+                    choix.pourPlafond = (mys[4].equals("1") ? true : false );
+                    choix.prixUnitaire = Double.parseDouble(mys[5]);
 
-                    myRevetement.idRevetement = Integer.parseInt(mys[0]);
-                    myRevetement.designation = mys[1];
-                    myRevetement.pourMur = (mys[2].equals("1") ? true : false );
-                    myRevetement.pourSol = (mys[3].equals("1") ? true : false );
-                    myRevetement.pourPlafond = (mys[4].equals("1") ? true : false );
-                    myRevetement.prixUnitaire = Double.parseDouble(mys[5]);
-
-                    rev.add(myRevetement);
-
+                    rev.add(choix);
                 }
                 catch(NumberFormatException e)
                 {
@@ -89,16 +85,15 @@ public class Revetement {   //astraite
 
         }
 
-        catch (IOException e){  //exception pour peinture 
-            e.printStackTrace();
-        }
+        catch (IOException e){
+                    }
         return rev;
     }
         
     @Override
     public String toString()
     {
-        return "\nRevetement " + this.idRevetement + " : " + this.designation + " a un prix de : " + this.prixUnitaire;
+        return ": Revetement " + this.idRevetement + " : " + this.designation + " a un prix unitaire de : " + this.prixUnitaire;
     }
    
 

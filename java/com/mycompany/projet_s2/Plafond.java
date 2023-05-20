@@ -18,8 +18,9 @@ public class Plafond extends Ttsurfaces{
         this.revetement = new Revetement();
     }
     
-    
+   
     //methode qui deetermine le revetement du plafond
+    @Override
     public void changeRevetement(Revetement rev)
     {
         if(rev.pourPlafond){     //verifie que revetement est bien pour le plafond
@@ -27,7 +28,20 @@ public class Plafond extends Ttsurfaces{
         }
     }
     
+    @Override
+       public double surface(double hsp){
+        double L1 = 0;
+        double L2 = 0;
+        
+        L1 = this.murs.get(1).longueur();
+        L2 = this.murs.get(2).longueur();
+        
+        return L1*L2;
+    }
+       
+    /*
     //meme calcul de surface que pour les murs dans piece
+    @Override
        public double surface(double hsp){
         double L1 = 0;
         double L2 = 0;
@@ -45,11 +59,11 @@ public class Plafond extends Ttsurfaces{
         L1 = Math.sqrt(X2-Y2);
         return 0;
     }
-
+*/
     @Override
     public String toString() {
-        return "thingamagig";
+        return "plafondok";
     }
-       
+
      
 }

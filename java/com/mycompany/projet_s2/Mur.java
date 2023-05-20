@@ -32,9 +32,11 @@ public class Mur extends Ttsurfaces{
         this.idMur = id;
         //this.nmbrFenetres = 0;
         //this.nmbrPortes = 0;
+        System.out.println("quel revetement vouleez vous pour le mur "+idMur+'?');
         this.revetement = new Revetement();
+        //this.revetement = Lire.Revetement();
     }
-
+    /*
     //Constructeur pour un mur en continuation d'un autre: le deuxieme coin est demandé
 
     public Mur(int id, Coin debut){
@@ -62,8 +64,8 @@ public class Mur extends Ttsurfaces{
         this.revetement = null;
 
     }
-    
-    
+    */
+
     
 /*
     //Methode pour ajouter des fenetres
@@ -80,26 +82,27 @@ public class Mur extends Ttsurfaces{
 */
     
     
-    //Methode calcule de longueur du mur
+    //Methode calcule de longueur du mur horizontale ou verticale
 
     public double longueur() {
         return Math.sqrt(Math.pow(Math.abs(this.debut.getX() - this.fin.getX()), 2) + Math.pow(Math.abs(this.debut.getY() - this.fin.getY()), 2));
     }
    
-    
+  
     //Methode pour définir revetement du mur
 
- 
+    @Override
     public void changeRevetement(Revetement rev)
     {
         if(rev.pourMur){ 
             this.revetement = rev;
         }
     }
-    
+     
     
     //Methode pour calculer la surface du mur
 
+    @Override
     public double surface(double hsp) {
 
         return hsp * this.longueur();
@@ -110,7 +113,7 @@ public class Mur extends Ttsurfaces{
     public String toString()
     {
         return "\n Mur " + this.idMur + " de coin de debut: ( " + this.debut.getX() + " , " + this.debut.getY() + " ) "
-             +  "; et de coin de fin: ( " + this.fin.getX() + " , " + this.fin.getY() + " ) " + " au revetement " + revetement;
+             +  "; de coin de fin: ( " + this.fin.getX() + " , " + this.fin.getY() + " ) " + " au cout de " + revetement;
     }
     
     void dessiner(){
@@ -164,7 +167,15 @@ public class Mur extends Ttsurfaces{
     {
         return fin.getId();
     }
-    
+/*
+    public Revetement getRevetement() {
+        return revetement;
+    }
+
+    public void setRevetement(Revetement revetement) {
+        this.revetement = revetement;
+    }
+    */
     
 
 }

@@ -26,11 +26,30 @@ public class projet {
         */
       //Coin n = new Coin(5);
       //Mur m = new Mur(3);
-      Piece p = new Piece(5);
-      Piece p1 = new Piece(4);
-      p.murs.get(0).changeRevetement(new Revetement(0, "Peinture", true, true, true, 10.0d));
-      System.out.println(p.calculrevetement(1));
-      System.out.println(p);
+      
+      
+      //Piece p = new Piece(5);
+      //Piece p1 = new Piece(4);
+      //p.murs.get(0).changeRevetement(new Revetement(0, "Peinture", true, true, true, 10.0d));
+      //System.out.println(p.calculrevetement(1));
+     //System.out.println(p);ok
+     
+     
+      /*
+      Appartement a = new Appartement(2, 2);
+      System.out.println(a.prixappart(1));
+      System.out.println(a);
+      ok */
+      
+      /*
+      Niveau n = new Niveau(2);
+      System.out.println(n.prixniveau(1));
+      System.out.println(n);
+okkkk*/
+      
+      Batiment n = new Batiment(6);
+      System.out.println(n.prixBatiment(1));
+      System.out.println(n);
     }
 }
 

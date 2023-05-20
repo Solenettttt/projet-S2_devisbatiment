@@ -46,26 +46,6 @@ public class Piece {
 
     }
     
-    //methode calcul de surface pour mur
-     public double surface(){
-        double L1 = 0;
-        double L2 = 0;
-        /*double X1;
-        double Y1;
-        double X2;
-        double Y2;*/
-        L1 = this.murs.get(1).longueur();
-        L2 = this.murs.get(2).longueur();
-       // X1 = Math.pow(this.murs.get(1).getFin().getX() - this.murs.get(1).getDebut().getX(), 2);
-        //Y1 = Math.pow(this.murs.get(1).getFin().getY() + this.murs.get(1).getDebut().getY(), 2);
-        //L1 = Math.sqrt(X1-Y1);
-        
-        //X2 = Math.pow(this.murs.get(2).getFin().getX() - this.murs.get(2).getDebut().getX(), 2);
-        //Y2 = Math.pow(this.murs.get(2).getFin().getY() + this.murs.get(2).getDebut().getY(), 2);
-        //L1 = Math.sqrt(X2-Y2);
-        return L1*L2;
-    }
-     
      
     //calcul du cout en fonction de suface et revetement determiné
     
@@ -77,18 +57,19 @@ public class Piece {
         for(Ttsurfaces s : solplafond){  //calculs pour tous sols et plafonds
             if(s instanceof Sol){   //si c'est un sol
                 Sol sol = (Sol) s;
-                //res += sol.surface(hsp) * sol.revetement.prixUnitaire;
+                res += sol.surface(hsp) * sol.revetement.prixUnitaire;
             }
             else if(s instanceof Plafond){//si c'est un plafond
                 Plafond plaf = (Plafond) s;
-                //res += plaf.surface(hsp) * plaf.revetement.prixUnitaire;
+                res += plaf.surface(hsp) * plaf.revetement.prixUnitaire;
             }
         }
         return res;
     }  
-
+   
+    @Override
     public String toString() {
-        String s = "Piece{" + "idPiece=" + idPiece + ", murs=" ;
+        String s = "\n  La Piece " + idPiece + " qui contient " ;
         for(int i = 0; i < murs.size(); i++)
         {
             s += murs.get(i).toString();
@@ -97,7 +78,7 @@ public class Piece {
         {
             if(t instanceof Sol)
             {
-                Sol downcastedObject = (Sol) t;
+                Sol downcastedObject = (Sol) t;      //downcast pour pouvoir utiliser les éléments de la classe
                 s += downcastedObject.toString();
             }
             if(t instanceof Plafond)

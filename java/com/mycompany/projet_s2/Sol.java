@@ -22,35 +22,30 @@ public class Sol extends Ttsurfaces{
     }
 
     //methode qui deetermine le revetement du sol
+    @Override
     public void changeRevetement(Revetement rev)
     {
         if(rev.pourSol){    //verifie que revetement est bien pour le sol
             this.revetement = rev;
         }
     }
-    
+  
     //meme calcul de surface que pour les murs dans piece
+    @Override
        public double surface(double hsp){
         double L1 = 0;
         double L2 = 0;
-        double X1;
-        double Y1;
-        double X2;
-        double Y2;
         
-        X1 = Math.pow(this.murs.get(1).getFin().getX() - this.murs.get(1).getDebut().getX(), 2);
-        Y1 = Math.pow(this.murs.get(1).getFin().getY() + this.murs.get(1).getDebut().getY(), 2);
-        L1 = Math.sqrt(X1-Y1);
+        //L1 = Math.abs(this.murs.get(4).getFin().getX() - this.murs.get(1).getDebut().getX());
+        //L2 = Math.abs(this.murs.get(4).getFin().getY() - this.murs.get(3).getDebut().getY());
+        L1 = this.murs.get(1).longueur();
+        L2 = this.murs.get(2).longueur();
         
-        X2 = Math.pow(this.murs.get(2).getFin().getX() - this.murs.get(2).getDebut().getX(), 2);
-        Y2 = Math.pow(this.murs.get(2).getFin().getY() + this.murs.get(2).getDebut().getY(), 2);
-        L2 = Math.sqrt(X2-Y2);
-        return 0;
+        return L1*L2;
     }
-
     @Override
     public String toString() {
-        return "bagadoodle";
+        return "solok";
     }
        
      
