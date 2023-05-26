@@ -1,0 +1,294 @@
+import java.util.Optional;
+import javafx.event.ActionEvent;
+import javafx.scene.Scene;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import javafx.scene.control.Alert;
+import javafx.geometry.Side;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.layout.Pane;
+
+/**
+ *
+ * @author antot
+ */
+public class Controleur {
+
+    private MainPane vue;
+    private int etat;
+    private static String largeurTerrain;
+    private static String longueurTerrain;
+    public static int nombreEtage;
+    public static String revetement;
+    public static String surfacerev = " ";
+    public static boolean rev;
+    public Side coteChoisi;
+    private TextField point1XTextField;
+    private TextField point1YTextField;
+    private TextField point2XTextField;
+    private TextField point2YTextField;
+    Alert alert = new Alert(Alert.AlertType.NONE);
+
+    
+        
+    
+
+    public Controleur(MainPane vue) {
+        this.vue = vue;
+    }
+
+    public void changeEtat(int nouvelEtat) {
+        switch (nouvelEtat) {
+            case 5:
+                TextInputDialog dialog5 = new TextInputDialog();
+                dialog5.setTitle("Surface habitable de la maison");
+                dialog5.setHeaderText("Définissez la largeur du terrain");
+                dialog5.setContentText("Entrez la largeur du terrain :");
+
+                Optional<String> largeT5 = dialog5.showAndWait();
+                if (largeT5.isPresent()) {
+                    largeurTerrain = largeT5.get();
+                    // Utilisez la valeur de largeurTerrain pour effectuer les actions souhaitées
+                    // ...
+                }
+
+                dialog5.setTitle("Surface habitable de la maison");
+                dialog5.setHeaderText("Définissez la longueur du terrain");
+                dialog5.setContentText("Entrez la longueur du terrain :");
+
+                Optional<String> longT5 = dialog5.showAndWait();
+                if (longT5.isPresent()) {
+                    longueurTerrain = longT5.get();
+                    // Utilisez la valeur de longueurTerrain pour effectuer les actions souhaitées
+                    // ...
+                }
+
+                dialog5.setTitle("Surface habitable de la maison");
+                dialog5.setHeaderText("Définissez le nombre d'étage ");
+                dialog5.setContentText("Entrez le nombre d'étage :");
+
+                Optional<String> nbet5 = dialog5.showAndWait();
+                if (nbet5.isPresent()) {
+                    nombreEtage = Integer.valueOf(nbet5.get());
+                    // Utilisez la valeur de nombreEtage pour effectuer les actions souhaitées
+                    // ...
+                    App.etageSuivant(nombreEtage, Double.parseDouble(largeurTerrain), Double.parseDouble(longueurTerrain));
+                }
+                break;
+
+            case 6:
+                TextInputDialog dialog6Width = new TextInputDialog();
+                dialog6Width.setTitle("Surface maximale de l'immeuble");
+                dialog6Width.setHeaderText("Définissez la largeur du terrain");
+                dialog6Width.setContentText("Entrez la largeur du terrain :");
+
+                Optional<String> largeT6 = dialog6Width.showAndWait();
+                if (largeT6.isPresent()) {
+                    largeurTerrain = largeT6.get();
+                    // Utilisez la valeur de largeurTerrain pour effectuer les actions souhaitées
+                    // ...
+                }
+
+                TextInputDialog dialog6Length = new TextInputDialog();
+                dialog6Length.setTitle("Surface maximale de l'immeuble");
+                dialog6Length.setHeaderText("Définissez la longueur du terrain");
+                dialog6Length.setContentText("Entrez la longueur du terrain :");
+
+                Optional<String> longT6 = dialog6Length.showAndWait();
+                if (longT6.isPresent()) {
+                    longueurTerrain = longT6.get();
+                    // Utilisez la valeur de longueurTerrain pour effectuer les actions souhaitées
+                    // ...
+                }
+
+                TextInputDialog dialog6Floors = new TextInputDialog();
+                dialog6Floors.setTitle("Surface maximale de l'immeuble");
+                dialog6Floors.setHeaderText("Définissez le nombre d'étage");
+                dialog6Floors.setContentText("Entrez le nombre d'étage :");
+
+                Optional<String> nbet6 = dialog6Floors.showAndWait();
+                if (nbet6.isPresent()) {
+                    nombreEtage = Integer.valueOf(nbet6.get());
+                    App.etageSuivant(nombreEtage, Double.parseDouble(largeurTerrain), Double.parseDouble(longueurTerrain));
+                }
+
+                break;
+            case 10:
+                etageSuivant();
+                break;
+            case 11:
+
+                break;
+            default:
+                // Gérez les autres cas si nécessaire
+                break;
+        }
+        this.etat = nouvelEtat;
+    }
+
+    public void boutonCreerEtage(ActionEvent t) {
+        this.changeEtat(10);
+    }
+
+    public void menuNouveau(ActionEvent t) {
+        Stage nouveau = new Stage();
+        nouveau.setTitle("Nouveau");
+        Scene sc = new Scene(new MainPane(nouveau), 800, 600);
+        nouveau.setScene(sc);
+        nouveau.show();
+    }
+
+    public void menuCreermaisonMenuItem(ActionEvent event) {
+        changeEtat(5);
+    }
+
+    public void menuCreerimmeubleMenuItem(ActionEvent event) {
+        changeEtat(6);
+    }
+
+    public void etageSuivant() {
+        App.etageSuivant(etat, Double.parseDouble(largeurTerrain), Double.parseDouble(longueurTerrain));
+    }
+
+    public static int getNombreEtage() {
+        return nombreEtage;
+    }
+
+    public static String getLargeurTerrain() {
+        return largeurTerrain;
+    }
+
+    public static String getLongueurTerrain() {
+        return longueurTerrain;
+    }
+
+    public void handleSolSelection() {
+        surfacerev = "Sol";
+        alert.setTitle("Revetement sol");
+        alert.setHeaderText(null);
+        alert.setContentText("Choisir le revêtement du sol :");
+        ButtonType carrelagesol = new ButtonType("Carrelage");
+        ButtonType parquetsol = new ButtonType("Parquet");
+        ButtonType bardagesol = new ButtonType("Bardage");
+        ButtonType moquettesol = new ButtonType("Moquette");
+        ButtonType marbresol = new ButtonType("Marbre");
+        ButtonType plaquettesol = new ButtonType("Plaquette de parement");
+        ButtonType vinylesol = new ButtonType("Vinyle Lino");
+        ButtonType stratifiesol = new ButtonType("Stratifié");
+        ButtonType annulersol = new ButtonType("Annuler", ButtonBar.ButtonData.CANCEL_CLOSE);
+        alert.getButtonTypes().setAll(carrelagesol, parquetsol, bardagesol, moquettesol, marbresol, plaquettesol, vinylesol, stratifiesol, annulersol);
+        Optional<ButtonType> resultsol = alert.showAndWait();
+        if (resultsol.get() == carrelagesol) {
+            revetement = "Carrelage";
+            rev = true;
+        } else if (resultsol.get() == parquetsol) {
+            revetement = "Parquet";
+            rev = true;
+        } else if (resultsol.get() == bardagesol) {
+            revetement = "Bardage Bois";
+            rev = true;
+        } else if (resultsol.get() == moquettesol) {
+            revetement = "Moquette";
+            rev = true;
+        } else if (resultsol.get() == plaquettesol) {
+            revetement = "Plaquette de parement";
+            rev = true;
+        } else if (resultsol.get() == vinylesol) {
+            revetement = "Vinyle";
+            rev = true;
+        } else if (resultsol.get() == stratifiesol) {
+            revetement = "Stratifié";
+            rev = true;
+        }
+    }
+
+    public void handleMurInterieurSelection() {
+        surfacerev = "Mur Interieur";
+        alert.setTitle("Choisir le revêtement du mur intérieur");
+        alert.setHeaderText(null);
+        alert.setContentText("Choisir le revêtement du mur intérieur :");
+        ButtonType peinturemurinterieur = new ButtonType("Peinture");
+        ButtonType carrelagemurinterieur = new ButtonType("Carrelage");
+        ButtonType parquetmurinterieur = new ButtonType("Parquet");
+        ButtonType bardagemurinterieur = new ButtonType("Bardage");
+        ButtonType lambrismurinterieur = new ButtonType("Lambris");
+        ButtonType liegemurinterieur = new ButtonType("Liege");
+        ButtonType annulermurinterieur = new ButtonType("Annuler", ButtonBar.ButtonData.CANCEL_CLOSE);
+        alert.getButtonTypes().setAll(peinturemurinterieur, carrelagemurinterieur, parquetmurinterieur, bardagemurinterieur, lambrismurinterieur, liegemurinterieur, annulermurinterieur);
+        Optional<ButtonType> resultmurinterieur = alert.showAndWait();
+        if (resultmurinterieur.get() == carrelagemurinterieur) {
+            revetement = "Carrelage";
+            rev = true;
+        } else if (resultmurinterieur.get() == parquetmurinterieur) {
+            revetement = "Parquet";
+            rev = true;
+        } else if (resultmurinterieur.get() == bardagemurinterieur) {
+            revetement = "Bardage Bois";
+            rev = true;
+        } else if (resultmurinterieur.get() == peinturemurinterieur) {
+            revetement = "Peinture";
+            rev = true;
+        } else if (resultmurinterieur.get() == lambrismurinterieur) {
+            revetement = "Lambris";
+            rev = true;
+        } else if (resultmurinterieur.get() == liegemurinterieur) {
+            revetement = "Liege";
+            rev = true;
+        }
+    }
+
+    public void handleMurExterieurSelection() {
+        surfacerev = "Mur Exterieur";
+        alert.setTitle("Choisir le revêtement du mur extérieur");
+        alert.setHeaderText(null);
+        alert.setContentText("Choisir le revêtement du mur extérieur :");
+        ButtonType peinturemurexterieur = new ButtonType("Peinture");
+        ButtonType bardagemurexterieur = new ButtonType("Bardage");
+        ButtonType crepismurexterieur = new ButtonType("Crépis");
+        ButtonType annulermurexterieur = new ButtonType("Annuler", ButtonBar.ButtonData.CANCEL_CLOSE);
+        alert.getButtonTypes().setAll(peinturemurexterieur, bardagemurexterieur, crepismurexterieur, annulermurexterieur);
+        Optional<ButtonType> resultmurexterieur = alert.showAndWait();
+        if (resultmurexterieur.get() == bardagemurexterieur) {
+            revetement = "Bardage Bois";
+            rev = true;
+        } else if (resultmurexterieur.get() == peinturemurexterieur) {
+            revetement = "Peinture";
+            rev = true;
+        } else if (resultmurexterieur.get() == crepismurexterieur) {
+            revetement = "Crépis";
+            rev = true;
+        }
+    }
+
+    public void handlePlafondSelection() {
+        surfacerev = "Plafond";
+        alert.setTitle("Choisir le revêtement du plafond");
+        alert.setHeaderText(null);
+        alert.setContentText("Choisir le revêtement du plafond :");
+        ButtonType peintureplafond = new ButtonType("Peinture");
+        ButtonType parquetplafond = new ButtonType("Parquet");
+        ButtonType bardageplafond = new ButtonType("Bardage");
+        ButtonType lambrisplafond = new ButtonType("Lambris");
+        ButtonType annulerplafond = new ButtonType("Annuler", ButtonBar.ButtonData.CANCEL_CLOSE);
+        alert.getButtonTypes().setAll(peintureplafond, parquetplafond, bardageplafond, lambrisplafond, annulerplafond);
+        Optional<ButtonType> resultplafond = alert.showAndWait();
+        if (resultplafond.get() == parquetplafond) {
+            revetement = "Parquet";
+            rev = true;
+        } else if (resultplafond.get() == bardageplafond) {
+            revetement = "Bardage Bois";
+            rev = true;
+        } else if (resultplafond.get() == peintureplafond) {
+            revetement = "Peinture";
+            rev = true;
+        } else if (resultplafond.get() == lambrisplafond) {
+            revetement = "Lambris";
+            rev = true;
+        }
+    }
+
+}
