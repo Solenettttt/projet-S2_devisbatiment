@@ -1,0 +1,41 @@
+import javafx.scene.layout.BorderPane;
+import javafx.scene.control.Alert;
+import javafx.stage.Stage;
+import java.util.Optional;
+import javafx.scene.control.ButtonType;
+public class MainPane extends BorderPane {
+
+    private Controleur controleur;
+    
+    private MainMenu menu;
+
+    
+
+    public MainPane(Stage nouveau) {
+        this.controleur = new Controleur(this);
+//       
+        this.menu = new MainMenu(this);
+        this.setTop(this.menu);
+        
+    }
+    
+    private void confirmClose(Stage stage) {
+    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+    alert.setTitle("Confirmation");
+    alert.setHeaderText("Êtes-vous sûr de vouloir fermer la fenêtre ?");
+    alert.setContentText("Toutes les données non sauvegardées seront perdues.");
+
+    Optional<ButtonType> result = alert.showAndWait();
+    if (result.isPresent() && result.get() == ButtonType.OK) {
+        stage.close(); // Ferme la fenêtre si l'utilisateur a confirmé
+    }
+    }
+  
+    public MainMenu getMenu() {
+        return menu;
+    }
+
+    public Controleur getControleur() {
+        return controleur;
+    }
+}
