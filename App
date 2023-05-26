@@ -1,0 +1,52 @@
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import java.util.ArrayList;
+import java.util.List;
+import javafx.geometry.Rectangle2D;
+import javafx.stage.Screen;
+
+public class App extends Application {
+
+    private static List<FenetreEtage> scenes = new ArrayList<>();
+    private static Stage primaryStage; // Ajout de la variable primaryStage
+    static public double largeurTerrain;
+    static public double longueurTerrain;
+    public static int e;
+
+    @Override
+    public void start(Stage stage) {
+        primaryStage = stage; // Assigner la valeur de primaryStage
+        MainPane mainPane = new MainPane(stage);
+        Scene scene = new Scene(mainPane, 800, 600);
+
+        stage.setTitle("Devis du batiment");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public static void etageSuivant(int nbetage, double largeur, double hauteur) {
+        if (scenes.isEmpty()) {
+            // Si la liste de scènes est vide, cela signifie qu'il s'agit du premier étage (étage 0)
+            FenetreEtage etageWindow = new FenetreEtage(0, largeur, hauteur);
+            scenes.add(etageWindow);
+            etageWindow.afficher();
+        } else {
+            int dernierEtage = scenes.size() - 1;
+            if (dernierEtage < nbetage) {
+                int nouvelEtage = dernierEtage + 1;
+                FenetreEtage etageWindow = new FenetreEtage(nouvelEtage, largeur, hauteur);
+                scenes.add(etageWindow);
+                etageWindow.afficher();
+            } else {
+                System.out.println("Nombre d'étages dépassé");
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+
+        launch(args);
+
+    }
+}
