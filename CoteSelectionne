@@ -1,0 +1,59 @@
+import javafx.scene.shape.Rectangle;
+import javafx.geometry.Side;
+import javafx.scene.paint.Color;
+import javafx.scene.input.MouseEvent;
+import javafx.event.EventHandler;
+
+public class CoteSelectionne implements EventHandler<MouseEvent> {
+
+    private Side coteSelectionne;
+    private String revetementChoisi;
+
+    public CoteSelectionne(Side coteSelectionne, String revetementChoisi) {
+        this.coteSelectionne = coteSelectionne;
+        this.revetementChoisi = revetementChoisi;
+    }
+
+    @Override
+    public void handle(MouseEvent event) {
+        Rectangle rectangle = (Rectangle) event.getSource();
+
+        // Appliquer le revêtement choisi au côté sélectionné du rectangle
+        appliquerRevetement(rectangle, coteSelectionne, revetementChoisi);
+    }
+
+    private void appliquerRevetement(Rectangle rectangle, Side cote, String revetement) {
+        if (revetement.equals("Sol")) {
+            if (cote == Side.TOP || cote == Side.BOTTOM) {
+                if (revetementChoisi.equals("Carrelage")) {
+                    rectangle.setFill(Color.TAN);
+                } else if (revetementChoisi.equals("Parquet")) {
+                    rectangle.setFill(Color.BROWN);
+                } else if (revetementChoisi.equals("Bardage Bois")) {
+                    Color darkBrown = Color.rgb(101, 67, 33);
+                    rectangle.setFill(darkBrown);
+                } else if (revetementChoisi.equals("Moquette")) {
+                    rectangle.setFill(Color.GRAY);
+                } else if (revetementChoisi.equals("Plaquette de parement")) {
+                    rectangle.setFill(Color.LIGHTGRAY);
+                } else if (revetementChoisi.equals("Vinyle")) {
+                    rectangle.setFill(Color.LIGHTBLUE);
+                } else if (revetementChoisi.equals("Stratifié")) {
+                    rectangle.setFill(Color.DARKBLUE);
+                } else {
+                    // Gérer le cas où le revêtement spécifié n'est pas valide pour le côté sélectionné du sol
+                }
+            } else {
+                // Gérer le cas où le revêtement sur le côté spécifié n'est pas applicable pour le sol
+            }
+        } else if (revetement.equals("Mur Extérieur")) {
+            if (cote == Side.LEFT || cote == Side.RIGHT) {
+                rectangle.setFill(Color.WHITE);
+            } else {
+                // Gérer le cas où le revêtement sur le côté spécifié n'est pas applicable pour les murs extérieurs
+            }
+        } else if (revetement.equals("Plafond")) {
+            // Gérer le cas du revêtement pour le plafond
+        }
+    }
+}
