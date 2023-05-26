@@ -1,0 +1,41 @@
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import java.util.ArrayList;
+import java.util.List;
+
+public class FenetreEtage {
+
+    private static List<FenetreEtage> scenes = new ArrayList<>();
+    private Stage stage;
+    private Controleur controleur;
+
+    public FenetreEtage(int idetage, double largeur, double hauteur) { //
+
+        largeur = 600;
+        hauteur = 500;
+        stage = new Stage();
+        stage.setTitle("Étage " + idetage);
+
+        // Créez une instance du Controleur
+        Controleur controleur = new Controleur(new MainPane(stage));
+        // Créez la scène en passant l'objet controleur
+        Scene scene = new Scene(new Interface_Etage( largeur, hauteur, idetage, controleur), largeur, hauteur);
+
+        // Configurez la scène sur la fenêtre du stage
+        stage.setScene(scene);
+    }
+
+    public void afficher() {
+        stage.show();
+    }
+
+    public static void creerEtage(int idEtage, double largeur, double hauteur) {
+        FenetreEtage etageWindow = new FenetreEtage(idEtage, largeur, hauteur);
+        scenes.add(etageWindow); // Ajouter la fenêtre à la liste des scènes
+        etageWindow.afficher();
+    }
+
+    public Scene getScene() {
+        return stage.getScene();
+    }
+}
