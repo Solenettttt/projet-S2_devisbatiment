@@ -1,0 +1,64 @@
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+/**
+ *
+ * @author antot
+ */
+public class MainMenu extends MenuBar{
+    private MainPane main;
+    
+    public MainMenu(MainPane main){
+        this.main = main;
+        Menu file = new Menu("Fichier");
+        MenuItem nouveau = new MenuItem("Nouveau");
+        nouveau.setOnAction((t) -> {
+            this.main.getControleur().menuNouveau(t);
+        });
+        MenuItem save = new MenuItem("Sauvegarder");
+        save.setOnAction((t) -> {
+//            this.main.getControleur().menuSave(t);
+        });
+        MenuItem saveAs = new MenuItem("Sauvegarder sous...");
+        saveAs.setOnAction((t) -> {
+//            this.main.getControleur().menuSaveAs(t);
+        });
+        
+        file.getItems().addAll(nouveau, save, saveAs);
+
+     
+        Menu create = new Menu("Créer");
+        
+// Créer un sous-menu "Créer pièce" dans le menu "Créer"
+        Menu creerpiece = new Menu("Créer un nouveau devis");
+//        creerpiece.setOnAction((t) -> {
+//            this.main.getControleur().menuCreerpiece(t);
+//        });
+
+// Créer plusieurs options pour le sous-menu "Créer pièce"
+        MenuItem creermaisonMenuItem = new MenuItem("Créer une maison");
+        creermaisonMenuItem.setOnAction((t) -> {
+            this.main.getControleur().menuCreermaisonMenuItem(t);
+        });
+        MenuItem creerimmeubleMenuItem = new MenuItem("Créer un immeuble");
+        creerimmeubleMenuItem.setOnAction((t) -> {
+            this.main.getControleur().menuCreerimmeubleMenuItem(t);
+        });
+        
+// Ajouter les options au sous-menu "Créer pièce"
+        creerpiece.getItems().addAll(creermaisonMenuItem, creerimmeubleMenuItem);
+
+// Ajouter le sous-menu "Créer pièce" au menu "Créer"
+        create.getItems().add(creerpiece);
+
+        Menu help = new Menu("Aide");
+        MenuItem apropos = new MenuItem("A propos");
+        apropos.setOnAction((t) -> {
+//            this.main.getControleur().menuApropos(t);
+        });
+        help.getItems().addAll(apropos);
+
+        this.getMenus().addAll(file, create, help);
+    }
+
+}
