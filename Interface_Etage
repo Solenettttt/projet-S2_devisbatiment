@@ -1,0 +1,334 @@
+import javafx.geometry.Insets;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
+import java.util.Optional;
+import javafx.stage.Stage;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
+import javafx.event.EventHandler;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.control.TextInputDialog;
+import javafx.scene.layout.Pane;
+import javafx.geometry.Pos;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
+import javafx.scene.paint.Color;
+import javafx.geometry.Side;
+
+public class Interface_Etage extends BorderPane implements EventHandler<MouseEvent> {
+
+    public double largeur;
+    public double hauteur;
+    private Pane centerPane;
+    public Side coteChoisi = null;
+    private Rectangle selectedRectangle;
+    private String revetementChoisi;
+
+    public static String surfacerev = " ";
+
+    private Button bCrerEtage;
+    private Button bEtage;
+    private Button bRevetement;
+    private Button bPiece;
+    private Button bSupprimer;
+    private Button bCreePointDialog;
+
+    private Controleur controleur;
+    public static Label aide;
+
+    public static String typePiece;
+    public static boolean piece = false;
+    public static boolean rev = false;
+    public static boolean supprime = false;
+
+    public Interface_Etage(double largeur, double hauteur, int idetage, Controleur controleur) {
+
+        this.largeur = largeur;
+        this.hauteur = hauteur;
+        this.controleur = controleur;
+        this.bEtage = new Button("Etage n°" + idetage);
+        this.centerPane = new Pane();
+        this.setCenter(centerPane);
+
+        this.bCrerEtage = new Button("Créer nouvel étage");
+        this.bCrerEtage.setOnAction((t) -> {
+            this.controleur.boutonCreerEtage(t);
+        });
+
+        HBox hbBas = new HBox(this.bEtage, this.bCrerEtage);
+        hbBas.setSpacing(5);
+        HBox.setMargin(this.bEtage, new Insets(0, 2, 0, 2)); // Espacement égal entre les boutons
+        HBox.setMargin(this.bCrerEtage, new Insets(0, 2, 0, 2));
+
+        this.setBottom(hbBas);
+        this.bPiece = new Button("Pièce");
+        bPiece.setOnAction((t) -> {
+            Alert alert = new Alert(Alert.AlertType.NONE);
+            alert.setTitle("Choisir la fonction de la pièce");
+            alert.setHeaderText(null);
+            alert.setContentText("Choisissez la fonction de la future pièce :");
+
+            ButtonType chambre = new ButtonType("Chambre");
+            ButtonType salle = new ButtonType("Salle de bain");
+            ButtonType cuisine = new ButtonType("Cuisine");
+            ButtonType degagement = new ButtonType("Dégagement");
+            ButtonType annuler = new ButtonType("Annuler", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+            alert.getButtonTypes().setAll(chambre, salle, cuisine, degagement, annuler);
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent()) {
+                ButtonType buttonType = result.get();
+                if (buttonType == chambre) {
+                    typePiece = "Chambre";
+                    piece = true;
+                } else if (buttonType == salle) {
+                    typePiece = "Salle de bain";
+                    piece = true;
+                } else if (buttonType == cuisine) {
+                    typePiece = "Cuisine";
+                    piece = true;
+                } else if (buttonType == degagement) {
+                    typePiece = "Dégagement";
+                    piece = true;
+                } else {
+                    // Annuler
+                }
+
+                // Demander les coordonnées des coins diagonaux de la pièce
+                TextInputDialog coordinatesDialog = new TextInputDialog();
+                coordinatesDialog.setTitle("Coordonnées des coins diagonaux de la pièce");
+                coordinatesDialog.setHeaderText("Entrez les coordonnées des deux coins diagonaux de la pièce");
+
+// Demander les coordonnées du point 1 - X
+                coordinatesDialog.setContentText("Point 1 - X :");
+                Optional<String> point1X = coordinatesDialog.showAndWait();
+                if (point1X.isPresent()) {
+                    // Demander les coordonnées du point 1 - Y
+                    coordinatesDialog.setContentText("Point 1 - Y :");
+                    Optional<String> point1Y = coordinatesDialog.showAndWait();
+                    if (point1Y.isPresent()) {
+                        // Demander les coordonnées du point 2 - X
+                        coordinatesDialog.setContentText("Point 2 - X :");
+                        Optional<String> point2X = coordinatesDialog.showAndWait();
+                        if (point2X.isPresent()) {
+                            // Demander les coordonnées du point 2 - Y
+                            coordinatesDialog.setContentText("Point 2 - Y :");
+                            Optional<String> point2Y = coordinatesDialog.showAndWait();
+                            if (point2Y.isPresent()) {
+                                double x1 = Double.parseDouble(point1X.get());
+                                double y1 = Double.parseDouble(point1Y.get());
+                                double x2 = Double.parseDouble(point2X.get());
+                                double y2 = Double.parseDouble(point2Y.get());
+
+                                // Calculer les coordonnées des coins du rectangle
+                                double minX = Math.min(x1, x2);
+                                double minY = Math.min(y1, y2);
+                                double width = Math.abs(x2 - x1);
+                                double height = Math.abs(y2 - y1);
+
+                                // Créer et dessiner le rectangle
+                                Rectangle rectangle = new Rectangle(minX, minY, width, height);
+                                Color couleurPiece;
+                                switch (typePiece) {
+                                    case "Chambre":
+                                        couleurPiece = Color.BLUE;
+                                        break;
+                                    case "Salle de bain":
+                                        couleurPiece = Color.GREEN;
+                                        break;
+                                    case "Cuisine":
+                                        couleurPiece = Color.RED;
+                                        break;
+                                    case "Dégagement":
+                                        couleurPiece = Color.YELLOW;
+                                        break;
+                                    default:
+                                        couleurPiece = Color.GRAY;
+                                        break;
+                                }
+
+                                rectangle.setFill(couleurPiece);
+                                rectangle.setStroke(Color.BLACK);
+                                Label labelTypePiece = new Label(typePiece);
+                                labelTypePiece.setFont(new Font("Arial", 12));
+                                labelTypePiece.setTextFill(Color.BLACK);
+
+// Déterminer la taille maximale du texte en fonction de la taille du rectangle
+                                double maxWidth = width - 10; // ajustez la marge si nécessaire
+                                double maxHeight = height - 10; // ajustez la marge si nécessaire
+
+// Ajuster la taille de la police en fonction de la largeur du rectangle
+                                double fontSize = 12;
+                                Font font = new Font("Arial", fontSize);
+                                Text text = new Text(typePiece);
+                                text.setFont(font);
+                                double textWidth = text.getBoundsInLocal().getWidth();
+                                if (textWidth > maxWidth) {
+                                    fontSize = fontSize * maxWidth / textWidth;
+                                    font = new Font("Arial", fontSize);
+                                }
+
+// Ajuster la taille de la police en fonction de la hauteur du rectangle
+                                text.setFont(font);
+                                double textHeight = text.getBoundsInLocal().getHeight();
+                                if (textHeight > maxHeight) {
+                                    fontSize = fontSize * maxHeight / textHeight;
+                                    font = new Font("Arial", fontSize);
+                                }
+
+// Appliquer la nouvelle taille de police
+                                labelTypePiece.setFont(font);
+
+// Positionner le label au centre du rectangle
+                                double labelX = width / 2 - labelTypePiece.getWidth() / 2;
+                                double labelY = height / 2 - labelTypePiece.getHeight() / 2;
+                                labelTypePiece.setLayoutX(minX + labelX);
+                                labelTypePiece.setLayoutY(minY + labelY);
+
+// Centrer le contenu du label
+                                labelTypePiece.setAlignment(Pos.CENTER);
+                                labelTypePiece.setTextAlignment(TextAlignment.CENTER);
+                                labelTypePiece.setWrapText(true);
+
+                                // Ajouter le rectangle à la scène ou au conteneur approprié
+                                rectangle.setOnMouseClicked(event -> handle(event));
+                                centerPane.getChildren().addAll(rectangle, labelTypePiece);
+
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        this.bRevetement = new Button("Revêtement");
+        bRevetement.setOnAction((t) -> {
+            Alert alert = new Alert(Alert.AlertType.NONE);
+            alert.setTitle("Choisir la surface à revêtir");
+            alert.setHeaderText(null);
+            alert.setContentText("Choisir la surface à revêtir :");
+            ButtonType sol = new ButtonType("Sol");
+            ButtonType murinterieur = new ButtonType("Mur Intérieur");
+            ButtonType murexterieur = new ButtonType("Mur Extérieur");
+            ButtonType plafond = new ButtonType("Plafond");
+            ButtonType annuler = new ButtonType("Annuler", ButtonBar.ButtonData.CANCEL_CLOSE);
+            alert.getButtonTypes().setAll(sol, murinterieur, murexterieur, plafond, annuler);
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent()) {
+                if (result.get() == sol) {
+                    controleur.handleSolSelection();
+                } else if (result.get() == murinterieur) {
+                    controleur.handleMurInterieurSelection();
+                } else if (result.get() == murexterieur) {
+                    controleur.handleMurExterieurSelection();
+                } else if (result.get() == plafond) {
+                    controleur.handlePlafondSelection();
+                } else if (result.get() == annuler) {
+                    // Action à effectuer pour l'option "Annuler"
+                }
+            }
+        });
+
+        this.bSupprimer = new Button("Supprimer");
+        bSupprimer.setLayoutX(largeur * 2 / 3);
+        bSupprimer.setLayoutY(140);
+        bSupprimer.setOnAction((t) -> {
+            supprime = true;
+        });
+
+        VBox vbDroite = new VBox(50); // Espacement vertical entre les boutons
+        vbDroite.setPadding(new Insets(30)); // Marge autour des boutons
+        vbDroite.getChildren().addAll(bRevetement, bPiece, bSupprimer);
+
+        this.setRight(vbDroite);
+
+    }
+
+    private void handleMouseClick(MouseEvent event) {
+        // ...
+
+        if (selectedRectangle != null && coteChoisi != null) {
+            CoteSelectionne coteSelectionneHandler = new CoteSelectionne(coteChoisi, surfacerev);
+            selectedRectangle.setOnMouseClicked(coteSelectionneHandler);
+
+            selectedRectangle = null;
+            coteChoisi = null;
+        }
+    }
+
+    @Override
+    public void handle(MouseEvent event) {
+        if (event.getSource() instanceof Rectangle) {
+            selectedRectangle = (Rectangle) event.getSource();
+
+            // Créer une boîte de dialogue pour choisir le côté du rectangle
+            Alert alert = new Alert(Alert.AlertType.NONE);
+            alert.setTitle("Choisir le côté du rectangle");
+            alert.setHeaderText(null);
+            alert.setContentText("Choisissez le côté du rectangle sur lequel vous souhaitez appliquer le revêtement :");
+
+            ButtonType topButton = new ButtonType("Haut");
+            ButtonType bottomButton = new ButtonType("Bas");
+            ButtonType leftButton = new ButtonType("Gauche");
+            ButtonType rightButton = new ButtonType("Droite");
+            ButtonType cancelButton = new ButtonType("Annuler", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+            alert.getButtonTypes().setAll(topButton, bottomButton, leftButton, rightButton, cancelButton);
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent()) {
+                ButtonType buttonType = result.get();
+                if (buttonType == topButton) {
+                    coteChoisi = Side.TOP;
+                } else if (buttonType == bottomButton) {
+                    coteChoisi = Side.BOTTOM;
+                } else if (buttonType == leftButton) {
+                    coteChoisi = Side.LEFT;
+                } else if (buttonType == rightButton) {
+                    coteChoisi = Side.RIGHT;
+                } else {
+                    // Annuler
+                    selectedRectangle = null;
+                    coteChoisi = null;
+                }
+
+                if (selectedRectangle != null && coteChoisi != null) {
+                    CoteSelectionne coteSelectionneHandler = new CoteSelectionne(coteChoisi, revetementChoisi);
+                    selectedRectangle.setOnMouseClicked(coteSelectionneHandler);
+                }
+            }
+        }
+    }
+
+    private void confirmClose(Stage stage) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText("Êtes-vous sûr de vouloir fermer la fenêtre ?");
+        alert.setContentText("Toutes les données non sauvegardées seront perdues.");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            stage.close(); // Ferme la fenêtre si l'utilisateur a confirmé
+        }
+    }
+
+    public String getRevetementChoisi() {
+        return revetementChoisi;
+    }
+
+    public void setRevetementChoisi(String revetementChoisi) {
+        this.revetementChoisi = revetementChoisi;
+    }
+    
+}
