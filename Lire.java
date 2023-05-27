@@ -6,13 +6,10 @@ package com.mycompany.projet_s2;
 
 /**
  *
- * @author atassart01
+ * @author Thuy
  */
-import java.io.*;
 
-/**
-version améliorée par Raphaël Schruoffeneger ; MIQ2 INSA Strasbourg 2013 
-*/
+import java.io.*;
 
 public class Lire
 {    
@@ -594,4 +591,3 @@ public class Lire
         return resultat;
     } // fin de String separer(int nombre)
 }
-
