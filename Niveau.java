@@ -14,7 +14,7 @@ import java.util.Iterator;
 public class Niveau { 
     public int idNiveau;
     public int hsp;
-    public ArrayList<Appartement> appartements;
+    public ArrayList<Appartement> appartements; //on créer une liste d'appart pour ce batiment
 
     Niveau(int id){
         this.idNiveau = id;
@@ -27,7 +27,7 @@ public class Niveau {
             n = Lire.i();
         }
         
-        appartements = new ArrayList<Appartement>(n);   //on initialise la taille de la liste de pièce pour contenir le bon nombre voulu
+        appartements = new ArrayList<Appartement>(n);   //on initialise la taille de la liste d'appart pour contenir le bon nombre voulu
 
         for(int i = 0; i < n; i++){
             Appartement a = new Appartement(i+1);
@@ -42,15 +42,26 @@ public class Niveau {
         double s =0 ;
         
         for (Appartement a : this.appartements) {
-            //this.piece downcastedObject = (this.piece) piece;
             s += a.prixappart(hsp);
         }
         return s;
      }
 
+    //affiche en console le niveau et ce qu'il contient(appartement)
     @Override
     public String toString() {
         return "\n   Niveau " + idNiveau + " qui contient " + appartements ;
+    }
+    
+    //Affichage pour la sauvegarde du devis dans un fichier texte
+    public String afficher()
+    {
+        String s = "\n   Niveau " + idNiveau + " qui contient : "  ;
+        for(Appartement app : this.appartements)
+        {
+            s += app.afficher() + "\n";
+        }
+        return s;
     }
      
      

@@ -21,13 +21,12 @@ public class Sol extends Ttsurfaces{
     //Constructeur pour mur et son revetement
     public Sol(ArrayList<Mur> murs){
         this.murs = murs;
-        //System.out.println("Quel revetement voulez vous pour le sol de cette piece?");
-        //this.idrev=Lire.i();
-        //this.revetement = new Revetement(idrev);
+        
         definirRevetement();
     }
 
-    //methode qui deetermine le revetement du sol
+    
+    //methode qui détermine le revetement du sol
     @Override
     public void definirRevetement()
     {
@@ -42,7 +41,7 @@ public class Sol extends Ttsurfaces{
         }
     }
   
-    //meme calcul de surface que pour les plafonds 
+    //meme calcul de surface que pour les plafonds d'où heredite de Ttsurface
     @Override
        public double surface(){
         double L1;
@@ -53,14 +52,13 @@ public class Sol extends Ttsurfaces{
         
         return L1*L2;
     }
+       
+       
+ //afffichage du sol en console et fichier texte
     @Override
     public String toString() {
         return "\n Sol de surface " + surface() + "  ; utilisant: " + revetement + " ; au cout de "+ Revetement.montant(revetement, surface());
     }
-    
-     public static String labelSauvegarde(){
-        return "Surface sol;idRevetement sol;";
-    }
-       
+   
      
 }

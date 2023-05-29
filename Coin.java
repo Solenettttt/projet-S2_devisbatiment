@@ -13,8 +13,9 @@ public class Coin {
     private double x;  //abscisse du coin
     private double y;  //ordonnee du coin
     private static int nextId = 0; //pour itérer automatiquement le numéro d'identifiant
-    //Constructeur pour créer un coin saisissant les coordonnees</p>
     
+
+//Constructeur pour créer un coin saisissant les coordonnees</p>
     public Coin(int idCoin)
     {   
         this.idCoin = idCoin;
@@ -24,20 +25,21 @@ public class Coin {
         this.y = Lire.d();
     }
     
-    //Constructeur pour créer un coin avec les parametres donnees</p>
-
+    
+    //Constructeur pour créer un coin avec les parametres donnees 
     public Coin (int idCoin, double x, double y){
         this.idCoin =idCoin;
         this.x = x;
         this.y = y;
     }
-    /*
+   // pas utilisé mais possible pour interface graphique
     public Coin (double x, double y){
         this.idCoin = nextId++;
         this.x = x;
         this.y = y;}
-    */
     
+    
+    //getters
     public int getId()  {
         return idCoin;
     }
@@ -51,7 +53,7 @@ public class Coin {
     }
 
     //on change puis affect à la variable correspondante abscisse et ordonnée du coin avec méthode set
-
+//interface_pas utilisé pour console
     public void setX(double x) {
         this.x = x;
     }
@@ -59,6 +61,7 @@ public class Coin {
     public void setY(double y) {
         this.y = y;
     }
+    
     
     //methode tostring permet l'affichage correct de chaque coin
     @Override

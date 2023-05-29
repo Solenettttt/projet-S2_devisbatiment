@@ -1,13 +1,7 @@
 
 package com.mycompany.projet_s2;
-/*import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;*/
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+
+
 import java.util.ArrayList;
 
 //import Revetements.Revetement;
@@ -25,11 +19,7 @@ public class Plafond extends Ttsurfaces{
     //Constructeur plafond avec mur et revetement
     public Plafond(ArrayList<Mur> murs){
         this.murs = murs;
-        //definirRevetement(revetement );
-        //System.out.println("Quel revetement voulez vous pour le plafond de cette piece?");
-        //this.revetement = Lire;
-        //this.idrev=Lire.i();
-        //this.revetement = this.getRevetement(idrev);
+
         definirRevetement();
     }
 
@@ -40,7 +30,6 @@ public class Plafond extends Ttsurfaces{
     public void definirRevetement() {
 
         System.out.println("Quel revetement voulez vous pour le plafond de cette piece?");
-        //this.revetement = Lire;
         this.idrev=Lire.i();
         this.revetement = new Revetement(idrev);
 
@@ -50,28 +39,10 @@ public class Plafond extends Ttsurfaces{
             this.revetement = new Revetement(idrev);
         }
     
-        //if(rev.pourMur){ 
-          //  this.revetement = rev;}
-        
+       
     }
-    
 
-    public Revetement getRevetement(int id) {
-     Revetement rev=new Revetement(id);   
-        try{
-        rev = Revetement.readDef().get(id-1);
-
-    }catch(IOException error){
-        
-    }
-        return rev;
-    }
-/*
-    public double getIdrev(int id) {
-        
-    }
-    
-    */
+    //calcul surface heredité de Ttsurface
     @Override
        public double surface(){
         double s;
@@ -82,40 +53,11 @@ public class Plafond extends Ttsurfaces{
         
         return s;
     }
-   /*
-    public double getPrice() throws IOException {
-
-        try
-        {
-        BufferedReader flux = new BufferedReader(new FileReader("revs.txt"));
-        String lignelue;
-
-        while((lignelue=flux.readLine())!=null){        //on vérifie à chaque ligne
-            //on décompose en chaine de caratères avec la méthode split de la classe String
-            String[] attributs = lignelue.split(";"); //et on range les attributs dans une liste de String
-            
-            if (Double.parseDouble(attributs[0])==(this.idrev)|| Double.parseDouble(attributs[0])==(this.idrev)){
-                return(Double.parseDouble(attributs[5]));       //on recupere le prix du revetement selectionné
-            }
-        }
-        flux.close();
-        }       //try-catch pour recuper et identifier les erreurs plus efficacement
-        catch(FileNotFoundException err){
-            System.out.println("Erreur :le fichier n’existe pas!\n "+err);}
-        catch(IOException err){
-            System.out.println("Erreur :\n"+err);}
-        int trouve = 0;
-        if (trouve==0)
-            System.out.println("Introuvable");
-        return(0);
-        }
-*/
+  
+       //afffichage du plafond en console et fichier texte
     @Override
     public String toString() {
         return "\n Plafond de surface " + surface() + " ; utilisant: " + revetement + " ; au cout de "+ Revetement.montant(revetement, surface());
     }
     
-     public static String labelSauvegarde(){
-        return "Surface plafond;idRevetement plafond;";
-    }
 }

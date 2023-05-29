@@ -14,7 +14,7 @@ public class Batiment {
 
     public int idBatiment;
     public static double hsp;
-    public ArrayList<Niveau> niveaux;
+    public ArrayList<Niveau> niveaux;   //on créer une liste de niveau pour ce batiment
 
     Batiment(int id){
         this.idBatiment = id;
@@ -27,10 +27,9 @@ public class Batiment {
         }
         
         System.out.println("Quelle est l'hauteur sous plafond de votre batiment " + this.idBatiment);
-        this.hsp = Lire.i(); //enfin on defini hsp=lappeler partout
+        this.hsp = Lire.i(); //enfin on defini hsp; on l'appele partout pour calcule du devis
         
-        
-        niveaux = new ArrayList<Niveau>(n);   //on initialise la taille de la liste de pièce pour contenir le bon nombre voulu
+        niveaux = new ArrayList<Niveau>(n);   //on initialise la taille de la liste de niveau pour contenir le bon nombre voulu
 
         for(int i = 0; i < n; i++){
             
@@ -41,32 +40,55 @@ public class Batiment {
         System.out.println("Batiment " + this.idBatiment + " creee");
     }
     
-    public static double HSP(){     //static pour qu'on puisse recupere la valeur dans toute les autre classe   
+    public static double HSP(){    //static pour qu'on puisse recupere la valeur dans toute les autre classe   
         return Batiment.hsp;
     }
     
-    //calcul du prix de lu batiement en additionnant le prix de chaque niveau
+    //calcul du prix du batiment en additionnant le prix de chaque niveau
     public double prixBatiment(){
         double s =0 ;
         
         for (Niveau n : this.niveaux) {
-            //this.piece downcastedObject = (this.piece) piece;
             s += n.prixniveau(this.hsp);
         }
         return s;
      }
 
+    //toString pour l'affichage sur la console du devis et appel successif des autres classe
     @Override
     public String toString() {
         return " Batiment "+ idBatiment + " de hsp " + hsp + " contient" + niveaux ;
+        
+    }
+    
+    
+//pour la sauvegarde du devis dans un fichier texte
+    public String afficher()
+    {
+        String s = "\n Batiment"+ idBatiment + " de hsp " + hsp + " contient : ";
+        for(Niveau n : this.niveaux)
+        {
+            s += n.afficher() + "\n";
+        }
+        return s;
+    
     }
 
+    //getter pour recuperer la valeurs hsp dans les autre classe pour calculs du devis
     public double gethsp() {
         return this.hsp;
     }
 
     public void setHsp(int hsp) {
         this.hsp = hsp;
+    }
+
+    public int getIdBatiment() {
+        return idBatiment;
+    }
+
+    public ArrayList<Niveau> getNiveaux() {
+        return niveaux;
     }
 
    

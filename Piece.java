@@ -4,12 +4,8 @@
  */
 package com.mycompany.projet_s2;
 
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-//import java.util.logging.Level;
-//import java.util.logging.Logger;
 /**
  *
  * @author Thuy
@@ -73,9 +69,10 @@ public class Piece {
         return res;
     }  
    
+       //toString pour l'affichage sur la console et dans le fichier devis de la piece et de ses données=liste de murs, sol et plafond
     @Override
     public String toString() {
-        String s = "\n     La Piece " + idPiece + " qui contient " ;
+        String s = "\n     La Piece " + idPiece + " qui contient : " ;
         for(int i = 0; i < murs.size(); i++)
         { 
             try {
@@ -96,23 +93,6 @@ public class Piece {
         s += "\n Le cout de cette piece"+ idPiece+" est de : "
                 + calculrevetement(hsp);
         return s;
-    }
-    
-    public void sauvegarde(BufferedWriter bWriter) throws IOException{
-        bWriter.append( idPiece +";"+ 
-                this.solplafond.get(0).toString() +";"+ this.solplafond.get(1).toString() +";" ); 
-        // écriture des murs
-        murs.get(0).sauvegarde(bWriter);
-        murs.get(1).sauvegarde(bWriter);
-        murs.get(2).sauvegarde(bWriter);
-        murs.get(3).sauvegarde(bWriter);
-
-    }
-    public static String labelSauvegarde(){
-        return "idPiece;X origine;Y origine;longeur;largeur;" +
-                Sol.labelSauvegarde()+ Plafond.labelSauvegarde()+ ";" +
-                Mur.labelSauvegarde() + Mur.labelSauvegarde() + 
-                Mur.labelSauvegarde() + Mur.labelSauvegarde();
     }
    
   

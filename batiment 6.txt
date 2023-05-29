@@ -1,0 +1,50 @@
+                   Bonjour! 
+ Voici votre le devis correspondant au Batiment que vous venez de construire: 
+
+ Batiment6 de hsp 2.0 contient : 
+   Niveau 1 qui contient : 
+    L'Appartement 1 qui contient :  
+     La Piece 1 qui contient : 
+ Mur 1 :  debut: Coin1 ( 0.0 , 0.0 ) ; fin: Coin2 ( 0.0 , 2.0 )  ; utilisant: ( Revetement 1-Peinture au prix unitaire de : 10.95)
+   ; le nombre porte est:1 et le nombre fenetre est:0 ; au cout de finale de 10.95
+ Mur 2 :  debut: Coin2 ( 0.0 , 2.0 ) ; fin: Coin3 ( 2.0 , 2.0 )  ; utilisant: ( Revetement 2-Carrelage au prix unitaire de : 49.75)
+   ; le nombre porte est:0 et le nombre fenetre est:2 ; au cout de finale de 0.0
+ Mur 3 :  debut: Coin3 ( 2.0 , 2.0 ) ; fin: Coin4 ( 0.0 , 2.0 )  ; utilisant: ( Revetement 3-Lambris au prix unitaire de : 50.6)
+   ; le nombre porte est:0 et le nombre fenetre est:0 ; au cout de finale de 202.4
+ Mur 4 :  debut: Coin4 ( 0.0 , 2.0 ) ; fin: Coin1 ( 0.0 , 0.0 )  ; utilisant: ( Revetement 5-Crepi au prix unitaire de : 67.8)
+   ; le nombre porte est:0 et le nombre fenetre est:0 ; au cout de finale de 271.2
+ Sol de surface 4.0  ; utilisant: : ( Revetement 2-Carrelage au prix unitaire de : 49.75) ; au cout de 199.0
+ Plafond de surface 4.0 ; utilisant: : ( Revetement 1-Peinture au prix unitaire de : 10.95) ; au cout de 43.8
+ Le cout de cette piece1 est de : 727.3499999999999
+
+
+
+   Niveau 2 qui contient : 
+    L'Appartement 1 qui contient :  
+     La Piece 1 qui contient : 
+ Mur 1 :  debut: Coin1 ( 2.0 , 2.0 ) ; fin: Coin2 ( 2.0 , 6.0 )  ; utilisant: ( Revetement 8-Peinture au prix unitaire de : 77.3)
+   ; le nombre porte est:1 et le nombre fenetre est:0 ; au cout de finale de 386.5
+ Mur 2 :  debut: Coin2 ( 2.0 , 6.0 ) ; fin: Coin3 ( 6.0 , 6.0 )  ; utilisant: ( Revetement 3-Lambris au prix unitaire de : 50.6)
+   ; le nombre porte est:2 et le nombre fenetre est:0 ; au cout de finale de 101.2
+ Mur 3 :  debut: Coin3 ( 6.0 , 6.0 ) ; fin: Coin4 ( 2.0 , 6.0 )  ; utilisant: ( Revetement 6-Papier peint au prix unitaire de : 32.9)
+   ; le nombre porte est:0 et le nombre fenetre est:1 ; au cout de finale de 197.39999999999998
+ Mur 4 :  debut: Coin4 ( 2.0 , 6.0 ) ; fin: Coin1 ( 2.0 , 2.0 )  ; utilisant: ( Revetement 5-Crepi au prix unitaire de : 67.8)
+   ; le nombre porte est:0 et le nombre fenetre est:0 ; au cout de finale de 542.4
+ Sol de surface 16.0  ; utilisant: : ( Revetement 2-Carrelage au prix unitaire de : 49.75) ; au cout de 796.0
+ Plafond de surface 16.0 ; utilisant: : ( Revetement 1-Peinture au prix unitaire de : 10.95) ; au cout de 175.2
+ Le cout de cette piece1 est de : 2198.7
+
+     La Piece 2 qui contient : 
+ Mur 1 :  debut: Coin1 ( 1.0 , 12.0 ) ; fin: Coin2 ( 1.0 , 30.0 )  ; utilisant: ( Revetement 1-Peinture au prix unitaire de : 10.95)
+   ; le nombre porte est:1 et le nombre fenetre est:1 ; au cout de finale de 339.45
+ Mur 2 :  debut: Coin2 ( 1.0 , 30.0 ) ; fin: Coin3 ( 55.0 , 30.0 )  ; utilisant: ( Revetement 5-Crepi au prix unitaire de : 67.8)
+   ; le nombre porte est:0 et le nombre fenetre est:0 ; au cout de finale de 7322.4
+ Mur 3 :  debut: Coin3 ( 55.0 , 30.0 ) ; fin: Coin4 ( 12.0 , 55.0 )  ; utilisant: ( Revetement 3-Lambris au prix unitaire de : 50.6)
+   ; le nombre porte est:0 et le nombre fenetre est:0 ; au cout de finale de 5033.619230732495
+ Mur 4 :  debut: Coin4 ( 12.0 , 55.0 ) ; fin: Coin1 ( 1.0 , 12.0 )  ; utilisant: ( Revetement 6-Papier peint au prix unitaire de : 32.9)
+   ; le nombre porte est:0 et le nombre fenetre est:1 ; au cout de finale de 2854.7120783862547
+ Sol de surface 2685.9233049363115  ; utilisant: : ( Revetement 2-Carrelage au prix unitaire de : 49.75) ; au cout de 133624.6844205815
+ Plafond de surface 2685.9233049363115 ; utilisant: : ( Revetement 1-Peinture au prix unitaire de : 10.95) ; au cout de 29410.860189052608
+ Le cout de cette piece2 est de : 178585.72591875287
+
+

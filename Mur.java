@@ -4,13 +4,8 @@
  */
 package com.mycompany.projet_s2; 
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-        
-
+      
 
 /**
  *
@@ -20,11 +15,8 @@ public class Mur extends Ttsurfaces{
     private final int idMur;
     private  Coin debut;     //Point de départ du mur
     private  Coin fin;     //Point de fin du mur
-    //private int nmbrPortes;     extention
-    //private int nmbrFenetres;   
-    String[] attributs;
-    //int revetementsaisie;
-    int trouve = 0;
+    private int nmbrPortes;    
+    private int nmbrFenetres;   
     Revetement revetement;
     public int idrev; 
     public double prix; 
@@ -35,22 +27,38 @@ public class Mur extends Ttsurfaces{
         this.debut = c1;
         this.fin = c2;
         this.idMur = id;
-        //this.nmbrFenetres = 0;
-        //this.nmbrPortes = 0;
-        //System.out.println("quel revetement vouleez vous pour le mur "+idMur+'?');
-        //this.revetement = Lire;
-        //this.idrev=Lire.i();
-
-        //this.revetement = new Revetement(idrev);
+        this.nmbrFenetres = 0;
+        this.nmbrPortes = 0;
+       
         definirRevetement();
+        
+        //definir ouverture voulu
+        System.out.println("Combien de porte voulez vous pour le mur "+idMur+'?');
+        this.nmbrPortes=Lire.i();
+        System.out.println("Combien de fenetre voulez vous pour le mur "+idMur+'?');
+        this.nmbrFenetres=Lire.i();
     }
 
+       
+    //Methode calcule de longueur du mur horizontale ou verticale
+    public double longueur() {
+        return Math.sqrt(Math.pow(Math.abs(this.debut.getX() - this.fin.getX()), 2) + Math.pow(Math.abs(this.debut.getY() - this.fin.getY()), 2));
+    }
     
+    
+    // calcul de surface que pour les murs: hereditaire de Ttsurface
+    //on y soustrait les surface vide=ouverture de portes et fenetres avec dimension fixé
+    @Override
+       public double surface(){
+        return Batiment.hsp* this.longueur() - 3 * nmbrPortes - 2 * nmbrFenetres;
+    }
+       
+       
     //methode qui détermine le revetement pour un mur et le définit comme le revetement du mur
     @Override
     public void definirRevetement()
     {
-        System.out.println("Quel revetement voulez vous pour le mur"+ idMur +" de cette piece?");
+        System.out.println("Quel revetement voulez vous pour le mur "+ idMur +" de cette piece?");
         this.idrev=Lire.i();
         this.revetement = new Revetement(idrev);
 
@@ -60,47 +68,19 @@ public class Mur extends Ttsurfaces{
             this.revetement = new Revetement(idrev);
         }
     }
-    //Methode calcule de longueur du mur horizontale ou verticale
-    public double longueur() {
-        return Math.sqrt(Math.pow(Math.abs(this.debut.getX() - this.fin.getX()), 2) + Math.pow(Math.abs(this.debut.getY() - this.fin.getY()), 2));
-    }
-    // calcul de surface que pour les murs
-    @Override
-       public double surface(){
-        return Batiment.hsp* this.longueur();
-    }
        
-       
-    @Override
-    public String toString()
-    {
-        return "\n Mur " + this.idMur + " de coin de debut: ( " + this.debut.getX() + " , " + this.debut.getY() + " ) "
-             +  "; de coin de fin: ( " + this.fin.getX() + " , " + this.fin.getY() + " ) " ;
-    }
-    
-    
+
+    //pour la sauvegarde du devis dans un fichier texte
     public String afficher() throws IOException
     {
-        return "\n Mur : " + this.idMur + " coin de debut( " + this.debut.getX() + " , " + this.debut.getY() + " ) "
-             +  "; coin de fin( " + this.fin.getX() + " , " + this.fin.getY() + " ) " + " ; utilisant" + revetement 
-                + " ; au cout de finale de " + Revetement.montant(revetement, surface());
+        return "\n Mur " + this.idMur + " :  debut: " + this.debut.toString()+ "; fin: " +this.fin.toString() + " ; utilisant" + this.revetement +
+                "\n   ; le nombre porte est:" + this.nmbrPortes + " et le nombre fenetre est:"+ this.nmbrFenetres+
+                 " ; au cout de finale de " + Revetement.montant(revetement, surface());
         
     }
     
-    void dessiner(){
-    }
     
-     public void sauvegarde(BufferedWriter bWriter) throws IOException{
-        bWriter.append(this.idMur +";"+";"+ this.surface() +";" +
-                toString() );
-    }
-
-    public static String labelSauvegarde(){
-        return "idMur;Nb fenêtres;Nb portes;Surface mur; id revètement mur;";
-    }
-        // this.nbFenetres +";"+ this.nbPortes +
-    
-    /*
+    /* pas utilisé ici : idée pour controleur GUI
     //Methode pour ajouter des fenetres
     public void addFenetres(int n)          
     {
@@ -112,7 +92,8 @@ public class Mur extends Ttsurfaces{
     {
         this.nmbrPortes += n;
     }
-*/
+    */
+    
     
     //methodes getters
 
@@ -125,7 +106,7 @@ public class Mur extends Ttsurfaces{
     {
         return this.fin;
     }
-/*
+
     public int getNFenetres()         
     {
         return this.nmbrFenetres;
@@ -135,7 +116,7 @@ public class Mur extends Ttsurfaces{
     {
         return this.nmbrPortes;
     }
-*/
+
     
     //Methode setters changer coin de depart
     public void setDebut(Coin d)
@@ -151,16 +132,6 @@ public class Mur extends Ttsurfaces{
     public int getID()
     {
         return this.idMur;
-    }
-
-    public int getIdDebut()
-    {
-        return debut.getId();
-    }
-
-    public int getIdFin()
-    {
-        return fin.getId();
     }
 
     public Revetement getRevetement() {
