@@ -16,13 +16,14 @@ import java.util.ArrayList;
  * @author Thuy
  */
 public class Plafond extends Ttsurfaces{
+
     ArrayList<Mur> murs;
     Revetement revetement;
     private int idrev;
 
     
     //Constructeur plafond avec mur et revetement
-    public Plafond(ArrayList<Mur> murs, int idrev){
+    public Plafond(ArrayList<Mur> murs){
         this.murs = murs;
         //definirRevetement(revetement );
         //System.out.println("Quel revetement voulez vous pour le plafond de cette piece?");
@@ -32,11 +33,7 @@ public class Plafond extends Ttsurfaces{
         definirRevetement();
     }
 
-    
-    public void setRevetement(int i) {
-        this.revetement = Revetement.getRevetement(i);
-    }
-    
+  
     
     //methode qui vérfie et détermine le revetement du plafond
     @Override
@@ -57,21 +54,7 @@ public class Plafond extends Ttsurfaces{
           //  this.revetement = rev;}
         
     }
-    /*
-        System.out.println("Quel revetement voulez vous pour le plafond de cette piece?");
-        //this.revetement = Lire;
-        int id =Lire.i();
-        rev = new Revetement(id);
-
-        while(false==rev.pourPlafond){//verifie que revetement est bien pour le plafond
-            System.out.println("Ce revetement n'est pas adapter à cette surface. Veuillez reessayer:");
-            id =Lire.i();
-            rev = new Revetement(id);
-        }
-        this.idrev=id;
-        this.revetement = rev;
-    }
-       */
+    
 
     public Revetement getRevetement(int id) {
      Revetement rev=new Revetement(id);   
@@ -131,5 +114,8 @@ public class Plafond extends Ttsurfaces{
     public String toString() {
         return "\n Plafond de surface " + surface() + " ; utilisant: " + revetement + " ; au cout de "+ Revetement.montant(revetement, surface());
     }
-     
+    
+     public static String labelSauvegarde(){
+        return "Surface plafond;idRevetement plafond;";
+    }
 }

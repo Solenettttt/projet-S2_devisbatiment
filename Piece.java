@@ -4,6 +4,8 @@
  */
 package com.mycompany.projet_s2;
 
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 //import java.util.logging.Level;
@@ -41,9 +43,8 @@ public class Piece {
         murs.add(m4);
         
         Sol sol = new Sol(murs);
-        Plafond plafond = new Plafond(murs,19-1);
-        plafond.revetement= Revetement.getRevetement(1);
-        plafond.setRevetement(1);
+        Plafond plafond = new Plafond(murs);
+      
         this.solplafond.add((Ttsurfaces)sol);
         this.solplafond.add((Ttsurfaces)plafond);
            
@@ -85,20 +86,34 @@ public class Piece {
         }
         for(Object t : solplafond)
         {
-            if(t instanceof Sol downcastedObject)
-            { //downcast pour pouvoir utiliser les éléments de la classe
-                //downcast pour pouvoir utiliser les éléments de la classe
-                s += downcastedObject.toString();
+            if(t instanceof Sol downcastedObject){
+                s += downcastedObject.toString();//downcast pour pouvoir utiliser les éléments de la classe
             }
-            if(t instanceof Plafond d)
-            {
+            if(t instanceof Plafond d){
                 s += d.toString();
             }
         }
-        s += "\n Le cout de cette piece"+ idPiece+" est de : "+ calculrevetement(hsp);
+        s += "\n Le cout de cette piece"+ idPiece+" est de : "
+                + calculrevetement(hsp);
         return s;
     }
- 
+    
+    public void sauvegarde(BufferedWriter bWriter) throws IOException{
+        bWriter.append( idPiece +";"+ 
+                this.solplafond.get(0).toString() +";"+ this.solplafond.get(1).toString() +";" ); 
+        // écriture des murs
+        murs.get(0).sauvegarde(bWriter);
+        murs.get(1).sauvegarde(bWriter);
+        murs.get(2).sauvegarde(bWriter);
+        murs.get(3).sauvegarde(bWriter);
+
+    }
+    public static String labelSauvegarde(){
+        return "idPiece;X origine;Y origine;longeur;largeur;" +
+                Sol.labelSauvegarde()+ Plafond.labelSauvegarde()+ ";" +
+                Mur.labelSauvegarde() + Mur.labelSauvegarde() + 
+                Mur.labelSauvegarde() + Mur.labelSauvegarde();
+    }
    
   
 }

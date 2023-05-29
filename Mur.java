@@ -5,6 +5,7 @@
 package com.mycompany.projet_s2; 
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -28,9 +29,9 @@ public class Mur extends Ttsurfaces{
     public int idrev; 
     public double prix; 
 
+    
      //Constructeur pour le  premier mur: avec coins données
-   
-    public Mur(int id, Coin c1, Coin c2) {
+       public Mur(int id, Coin c1, Coin c2) {
         this.debut = c1;
         this.fin = c2;
         this.idMur = id;
@@ -43,82 +44,40 @@ public class Mur extends Ttsurfaces{
         //this.revetement = new Revetement(idrev);
         definirRevetement();
     }
-/*
-    public int getIdrev() {     //on recupere l'identifiant du revetement
-        return idrev;
-    }
 
-    public Revetement getRevetement() {
-        return revetement;
-    }
-   
     
-    public double getPrice() throws IOException {
-
-        try
-        {
-        BufferedReader flux = new BufferedReader(new FileReader("revs.txt"));
-        String lignelue;
-
-        while((lignelue=flux.readLine())!=null){        //on vérifie à chaque ligne
-            
-            //on décompose en chaine de caratères avec la méthode split de la classe String
-            attributs = lignelue.split(";");    //et on range les attributs dans une liste de String
-            
-            if (Double.parseDouble(attributs[0])==(this.idrev)){
-                return(Double.parseDouble(attributs[5]));       //on recupere le prix du revetement selectionné
-            }
-        }
-        flux.close();
-        }       //try-catch pour recuper et identifier les erreurs plus efficacement
-        catch(FileNotFoundException err){
-            System.out.println("Erreur :le fichier n’existe pas!\n "+err);}
-        catch(IOException err){
-            System.out.println("Erreur :\n"+err);}
-        if (trouve==0)
-            System.out.println("Introuvable");
-        return(0);
-        }
-   
-*/
-    //Methode calcule de longueur du mur horizontale ou verticale
-    public double longueur() {
-        return Math.sqrt(Math.pow(Math.abs(this.debut.getX() - this.fin.getX()), 2) + Math.pow(Math.abs(this.debut.getY() - this.fin.getY()), 2));
-    }
-   
-    //Methode pour verifier que le revetement est pour un mur et le définir comme revetement du mur
-   @Override
-      public void definirRevetement()
+    //methode qui détermine le revetement pour un mur et le définit comme le revetement du mur
+    @Override
+    public void definirRevetement()
     {
-        System.out.println("Quel revetement voulez vous pour le mur "+ idMur +" de cette piece?");
-        //this.revetement = Lire;
+        System.out.println("Quel revetement voulez vous pour le mur"+ idMur +" de cette piece?");
         this.idrev=Lire.i();
         this.revetement = new Revetement(idrev);
 
-        while(false==revetement.pourMur){//verifie que revetement est bien pour le plafond
+        while(false==revetement.pourMur){//verifie que revetement est bien pour le sol
             System.out.println("Ce revetement n'est pas adapter à cette surface. Veuillez reessayer:");
             this.idrev=Lire.i();
             this.revetement = new Revetement(idrev);
         }
-        
     }
-    
-    
-    //Methode pour calculer la surface du mur
+    //Methode calcule de longueur du mur horizontale ou verticale
+    public double longueur() {
+        return Math.sqrt(Math.pow(Math.abs(this.debut.getX() - this.fin.getX()), 2) + Math.pow(Math.abs(this.debut.getY() - this.fin.getY()), 2));
+    }
+    // calcul de surface que pour les murs
     @Override
-    public double surface() 
-    {
-        return Batiment.hsp * this.longueur();
+       public double surface(){
+        return Batiment.hsp* this.longueur();
     }
-
-    /*
+       
+       
     @Override
     public String toString()
     {
         return "\n Mur " + this.idMur + " de coin de debut: ( " + this.debut.getX() + " , " + this.debut.getY() + " ) "
              +  "; de coin de fin: ( " + this.fin.getX() + " , " + this.fin.getY() + " ) " ;
     }
-    */
+    
     
     public String afficher() throws IOException
     {
@@ -130,6 +89,17 @@ public class Mur extends Ttsurfaces{
     
     void dessiner(){
     }
+    
+     public void sauvegarde(BufferedWriter bWriter) throws IOException{
+        bWriter.append(this.idMur +";"+";"+ this.surface() +";" +
+                toString() );
+    }
+
+    public static String labelSauvegarde(){
+        return "idMur;Nb fenêtres;Nb portes;Surface mur; id revètement mur;";
+    }
+        // this.nbFenetres +";"+ this.nbPortes +
+    
     /*
     //Methode pour ajouter des fenetres
     public void addFenetres(int n)          

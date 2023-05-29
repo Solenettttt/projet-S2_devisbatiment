@@ -37,21 +37,23 @@ public class Revetement {
     this.idRevetement = idRevetement;
     try
     {
-    BufferedReader revet=new BufferedReader(new FileReader("revs.txt"));
-    String lignelue;// Ligne lue depuis le fichier
-       while((lignelue=revet.readLine())!=null )
-       {
-           StringTokenizer separation=new StringTokenizer(lignelue, ";");
-           String[] revetI = {separation.nextToken(),separation.nextToken(),separation.nextToken(),separation.nextToken(),separation.nextToken(),separation.nextToken()};
-           if (String.valueOf(idRevetement).equals(revetI[0])){
-               this.designation= revetI[1];
-               this.prixUnitaire= Double.valueOf(revetI[5]);
-               this.pourMur= Integer.valueOf(revetI[2])==1;
-               this.pourSol= Integer.valueOf(revetI[3])==1;
-               this.pourPlafond= Integer.valueOf(revetI[4])==1;
+        
+        BufferedReader revet=new BufferedReader(new FileReader("revs.txt"));
+        String lignelue;// Ligne lue depuis le fichier
+           while((lignelue=revet.readLine())!=null )
+           {
+               StringTokenizer separation=new StringTokenizer(lignelue, ";");
+               String[] revetI = {separation.nextToken(),separation.nextToken(),separation.nextToken(),separation.nextToken(),separation.nextToken(),separation.nextToken()};
+
+               if (String.valueOf(idRevetement).equals(revetI[0])){
+                   this.designation= revetI[1];
+                   this.prixUnitaire= Double.valueOf(revetI[5]);
+                   this.pourMur= Integer.valueOf(revetI[2])==1;
+                   this.pourSol= Integer.valueOf(revetI[3])==1;
+                   this.pourPlafond= Integer.valueOf(revetI[4])==1;
+               }
            }
-       }
-    revet.close();
+        revet.close();
     }
     catch(FileNotFoundException err){
     System.out.println( "Erreur :le fichier n’existe pas!\n "+err);}
@@ -61,19 +63,6 @@ public class Revetement {
     
 }
 
-
-    
-    /*
-    //constructeur pour définir un revetement
-    public Revetement(int id, String nom, boolean mur, boolean sol, boolean plafond, double prix){
-        this.idRevetement = id;
-        this.designation = nom;
-        this.pourMur = mur;
-        this.pourSol = sol;
-        this.pourPlafond = plafond;
-        this.prixUnitaire = prix;
-    }
-*/
     public int getIdRevetement() {
         return idRevetement;
     }
@@ -84,34 +73,7 @@ public class Revetement {
     {
         return R.prixUnitaire * s;
     }
-    /*
-    public double getPrice() throws IOException {
-
-        try
-        {
-        BufferedReader flux = new BufferedReader(new FileReader("revs.txt"));
-        String lignelue;
-
-        while((lignelue=flux.readLine())!=null){        //on vérifie à chaque ligne
-            //on décompose en chaine de caratères avec la méthode split de la classe String
-            String[] attributs = lignelue.split(";"); //et on range les attributs dans une liste de String
-            
-            if (Double.parseDouble(attributs[0])==(this.idRevetement)){
-                return(Double.parseDouble(attributs[5]));       //on recupere le prix du revetement selectionné
-            }
-        }
-        flux.close();
-        }       //try-catch pour recuper et identifier les erreurs plus efficacement
-        catch(FileNotFoundException err){
-            System.out.println("Erreur :le fichier n’existe pas!\n "+err);}
-        catch(IOException err){
-            System.out.println("Erreur :\n"+err);}
-        int trouve = 0;
-        if (trouve==0)
-            System.out.println("Introuvable");
-        return(0);
-        }
-    */
+   
     //methode pour permettre l'utilisation des données du fichier texte revs en rangant dans une arraylist 
     public static ArrayList<Revetement> readDef() throws IOException{
         ArrayList<Revetement> rev = new ArrayList<Revetement>();

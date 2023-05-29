@@ -12,7 +12,6 @@ import java.util.Iterator;
  */
 public class Appartement {
     public int idAppartement;
-    //public int niveauAppartement;
     public ArrayList<Piece> pieces;
 
     public Appartement(int id){
@@ -53,12 +52,7 @@ public class Appartement {
      
     @Override
     public String toString() {
-        String s = "\n    L'Appartement " + idAppartement + " qui contient " + pieces ;
-        /*
-        for(int i = 0; i < pieces.size(); i++)
-        {
-            s += pieces.get(i).toString();
-        }*/
+        String s = "\n    L'Appartement " + idAppartement + " qui contient " + pieces ;      
         return  s;
     }
     

@@ -4,7 +4,9 @@
 
 package com.mycompany.projet_s2;
 
-
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /**
  *
@@ -13,8 +15,36 @@ package com.mycompany.projet_s2;
 public class projet {
 
     public static void main(String[] args) {
-        int i;
-      /*  for(i == 0, i<100, i++){
+     
+      System.out.println("                   Bonjour! \n Veuillez entrer les donnees suivantes pour effectuer un calcul de devis ");
+      System.out.println("Entrez l'identifiant du batiment que vous voulez creer: ");
+      int id = Lire.i();
+      Batiment n = new Batiment(id);
+      System.out.println("\nLe devis de ce batiment est : ");
+      System.out.println(n+" \n Le prix total de ce batiment est : "+ n.prixBatiment());
+      {try
+      {
+          try (BufferedWriter Batiment = new BufferedWriter(new FileWriter("batiment.txt",true))) {
+              Batiment.write("                   Bonjour! \n Veuillez entrer les donnees suivantes pour effectuer un calcul de devis ");
+              Batiment.newLine();
+              Batiment.write((int) n.prixBatiment());
+              Batiment.newLine();
+             // Batiment.write(Batiment.toString());
+              Batiment.newLine();
+              Batiment.write(Niveau.toString());
+              Batiment.newLine();
+              Batiment.write(Niveau.toString());
+              Batiment.newLine();
+              Batiment.close();
+          }
+        }
+        catch (IOException err)
+        {System.out.println("Erreur :\n"+err);}
+        }
+    }
+}
+
+ /*  for(i == 0, i<100, i++){
         Coin c1;
         System.out.println("Donner les coordonnées du point");
         int id = Lire.i();
@@ -45,10 +75,3 @@ public class projet {
       System.out.println(n.prixniveau(1));
       System.out.println(n);
 okkkk*/
-      
-      Batiment n = new Batiment(6);
-      System.out.println("\nLe devis de ce batiment est : ");
-      System.out.println(n+" \n Le prix total de ce batiment est : "+ n.prixBatiment());
-    }
-}
-
